@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Dresses - Fashion Verse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Google Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Black background */
+            color: white; /* Default font color for readability */
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #000; /* Black background */
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4); /* Gradient color */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu li {
+            margin: 0 1rem;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .nav-menu a:hover {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .cart-icon {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: white;
+            padding-right: 20px; /* Padding right */
+        }
+        .cart-icon span {
+            margin-left: 0.5rem;
+            font-size: 1rem;
+        }
+        h2 {
+            text-align: center;
+            margin: 5rem 0 2rem; /* Adjusted for fixed header */
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .products {
+            padding: 2rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product-card h3, .product-card p {
+            color: white;
+        }
+        .add-to-cart {
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        .add-to-cart:hover {
+            background-color: #feb47b;
+        }
+        footer {
+            background-color: #000;
+            padding: 1rem;
+            text-align: center;
+            color: white;
+        }
+        footer p {
+            font-size: 0.9rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        .cart-modal .modal-content {
+            background-color: #222;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .cart-modal .modal-content h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .cart-modal .modal-content .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        .cart-modal .modal-content .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-bottom: 1px solid #444;
+        }
+        .cart-modal .modal-content .cart-item span {
+            color: white;
+        }
+        .cart-modal .modal-content .total {
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 1rem;
+        }
+        .cart-modal .modal-content .payment-method {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        .cart-modal .modal-content .payment-button {
+            background-color: #ff7e5f;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .cart-modal .modal-content .payment-button:hover {
+            background-color: #feb47b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">FASHION VERSE</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li class="cart-icon" id="cart-icon">
+                🛒<span id="cart-count">0</span>
+            </li>
+        </ul>
+    </header>
+
+    <main>
+        <section class="products">
+            <h2>Summer Dresses Collection</h2>
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-name="Floral Maxi Dress" data-price="$59.99">
+                    <img src="Flora.jpeg" alt="Floral Maxi Dress">
+                    <h3>Floral Maxi Dress</h3>
+                    <p>$59.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card" data-name="Casual A-line Dress" data-price="$49.99">
+                    <img src="Casual.jpeg" alt="Casual A-line Dress">
+                    <h3>Casual A-line Dress</h3>
+                    <p>$49.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card" data-name="Chic Boho Dress" data-price="$69.99">
+                    <img src="Chic Boho.jpeg" alt="Chic Boho Dress">
+                    <h3>Chic Boho Dress</h3>
+                    <p>$69.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card" data-name="Elegant Evening Dress" data-price="$89.99">
+                    <img src="Elegant.jpeg" alt="Elegant Evening Dress">
+                    <h3>Elegant Evening Dress</h3>
+                    <p>$89.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="modal-content">
+            <h3>Your Cart</h3>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="total" id="total-price">Total: $0.00</div>
+            <div class="payment-method">
+                <button class="payment-button" id="checkout-button">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Fashion Verse. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartCount = document.getElementById('cart-count');
+            const cartModal = document.getElementById('cart-modal');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            const checkoutButton = document.getElementById('checkout-button');
+            let cartItems = [];
+            
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const productCard = button.closest('.product-card');
+                    const productName = productCard.getAttribute('data-name');
+                    const productPrice = productCard.getAttribute('data-price');
+                    cartItems.push({ name: productName, price: productPrice });
+                    cartCount.textContent = cartItems.length;
+                    alert('Item added to cart!');
+                });
+            });
+
+            // Show cart modal when cart icon is clicked
+            document.getElementById('cart-icon').addEventListener('click', () => {
+                cartModal.style.display = 'block';
+                updateCartModal();
+            });
+
+            // Close cart modal on checkout button click
+            checkoutButton.addEventListener('click', () => {
+                alert('Proceeding to checkout...');
+                cartModal.style.display = 'none';
+                cartItems = [];
+                cartCount.textContent = 0;
+                updateCartModal();
+            });
+
+            function updateCartModal() {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+
+                cartItems.forEach(item => {
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.classList.add('cart-item');
+                    cartItemElement.innerHTML = `
+                        <span>${item.name}</span><span>${item.price}</span>
+                    `;
+                    cartItemsContainer.appendChild(cartItemElement);
+                    total += parseFloat(item.price.replace('$', ''));
+                });
+
+                totalPriceElement.textContent = `Total: $${total.toFixed(2)}`;
+            }
+        });
+    </script>
+</body>
+</html>
